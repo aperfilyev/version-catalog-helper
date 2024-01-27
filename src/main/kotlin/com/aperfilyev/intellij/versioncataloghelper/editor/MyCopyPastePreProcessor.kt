@@ -8,6 +8,7 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.util.PsiTreeUtil
+import com.intellij.psi.util.PsiUtilCore
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlTable
 
@@ -31,7 +32,8 @@ class MyCopyPastePreProcessor : CopyPastePreProcessor {
             return text
         }
         val offset = editor.caretModel.offset
-        val element = file.findElementAt(offset) ?: return text
+
+        val element = PsiUtilCore.getElementAtOffset(file, offset) ?: return text
         val table = findContainingTable(element)?.header ?: return text
         val inLibs = table.textMatches("[libraries]")
         if (!inLibs) {

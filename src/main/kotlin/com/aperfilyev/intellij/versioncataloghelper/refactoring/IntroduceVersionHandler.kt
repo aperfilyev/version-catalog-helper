@@ -18,7 +18,6 @@ import com.intellij.refactoring.suggested.endOffset
 import com.intellij.refactoring.suggested.startOffset
 import org.toml.lang.psi.TomlKeyValue
 import org.toml.lang.psi.TomlTable
-import org.toml.lang.psi.TomlTableHeader
 import org.toml.lang.psi.TomlValue
 
 class IntroduceVersionHandler : RefactoringActionHandler {
@@ -29,8 +28,9 @@ class IntroduceVersionHandler : RefactoringActionHandler {
         val versionKeyValue = PsiTreeUtil.getParentOfType(element, TomlKeyValue::class.java) ?: return
         val entry = PsiTreeUtil.getTopmostParentOfType(versionKeyValue, TomlKeyValue::class.java) ?: return
         val groupId = findGroupId(entry) ?: return
+        val allTables = PsiTreeUtil.getChildrenOfType(file, TomlTable::class.java)?.toList() ?: return
 
-        val matchingVersions = findAllOccurrences(file, groupId, versionKeyValue)
+        val matchingVersions = findAllOccurrences(allTables, groupId, versionKeyValue)
         if (matchingVersions.isEmpty()) {
             return
         }
@@ -38,7 +38,7 @@ class IntroduceVersionHandler : RefactoringActionHandler {
         val suggestedName = "${groupId.removeSurrounding("\"").substringAfterLast(".")}Version"
         val text = "\n$suggestedName = ${element.text}"
         val replacement = "version.ref = \"$suggestedName\""
-        val insertionPlace = findInsertionPlace(file) ?: return
+        val insertionPlace = findInsertionPlace(allTables) ?: return
         val documentManager = PsiDocumentManager.getInstance(project)
         showOccurrencesChooser(editor, versionKeyValue.value!!, matchingVersions) { versions ->
             val document = editor.document
@@ -67,37 +67,28 @@ class IntroduceVersionHandler : RefactoringActionHandler {
     private fun findGroupId(entry: TomlKeyValue?): String? {
         val groupKeyValue = PsiTreeUtil.getChildOfType(entry?.value, TomlKeyValue::class.java)
         val groupId = when {
-            groupKeyValue?.key?.textMatches("module") == true -> {
-                groupKeyValue.value?.text?.substringBefore(":")
-            }
-            groupKeyValue?.key?.textMatches("group") == true -> {
-                groupKeyValue.value?.text
-            }
-            else -> {
-                null
-            }
+            groupKeyValue?.key?.textMatches("module") == true -> groupKeyValue.value?.text?.substringBefore(":")
+            groupKeyValue?.key?.textMatches("group") == true -> groupKeyValue.value?.text
+            else -> null
         }
         return groupId?.replace("\"", "")
     }
 
-    private fun findAllOccurrences(file: PsiFile, groupId: String, versionKeyValue: TomlKeyValue): List<TomlValue> {
-        val libsTable = PsiTreeUtil.getChildrenOfType(file, TomlTable::class.java)
-            .orEmpty()
-            .firstOrNull { (it.firstChild as? TomlTableHeader)?.textMatches("[libraries]") == true } ?: return emptyList()
-        val entries = PsiTreeUtil.getChildrenOfType(libsTable, TomlKeyValue::class.java).orEmpty().toList()
-        return entries.filter { findGroupId(it) == groupId }
+    private fun findAllOccurrences(
+        allTables: List<TomlTable>,
+        groupId: String,
+        versionKeyValue: TomlKeyValue
+    ): List<TomlValue> {
+        val libsTable = allTables.firstOrNull { it.header.textMatches("[libraries]") } ?: return emptyList()
+        return libsTable.entries.filter { findGroupId(it) == groupId }
             .mapNotNull {
                 val versionKv = getLastChildOfType(it.value!!, TomlKeyValue::class.java)
                 if (versionKv?.textMatches(versionKeyValue) == true) versionKv.value else null
             }
     }
 
-    private fun findInsertionPlace(file: PsiFile): TomlTable? {
-        val tomlTables = PsiTreeUtil.getChildrenOfType(file, TomlTable::class.java)
-        return tomlTables?.firstOrNull {
-            val child = it.firstChild
-            child is TomlTableHeader && child.textMatches("[versions]")
-        }
+    private fun findInsertionPlace(allTables: List<TomlTable>): TomlTable? {
+        return allTables.firstOrNull { it.header.textMatches("[versions]") }
     }
 
     private fun showOccurrencesChooser(
