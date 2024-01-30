@@ -21,9 +21,7 @@ A plugin for Android Studio / Intellij that will improve your use of gradle vers
 <!-- Plugin description end -->
 
 ## Features
-
-- Single-line copy-paste
-  ![](assets/single-line-paste.mp4)
+  ![Single-line copy-paste](assets/single-line-paste.mp4)
 - Multi-line copy-paste
   ![](assets/multi-line-paste.mp4)
 - Extract constant refactoring
