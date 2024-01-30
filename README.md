@@ -26,8 +26,8 @@ A plugin for Android Studio / Intellij that will improve your use of gradle vers
   ![](assets/single-line-paste.gif)
 - Multi-line copy-paste
   ![](assets/multi-line-paste.gif)
-- Extract constant refactoring
-  ![](assets/extract-constant.gif)
+- Introduce constant refactoring
+  ![](assets/introduce-constant.gif)
 ## Installation
 
 - Using the IDE built-in plugin system:
