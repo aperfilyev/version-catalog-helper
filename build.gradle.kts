@@ -9,6 +9,13 @@ plugins {
     alias(libs.plugins.kotlin) // Kotlin support
     alias(libs.plugins.gradleIntelliJPlugin) // Gradle IntelliJ Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
+    alias(libs.plugins.spotless)
+}
+
+spotless {
+    kotlin {
+        ktlint()
+    }
 }
 
 group = properties("pluginGroup").get()

@@ -11,9 +11,8 @@ class MyVariableIntroducer(
     elementToRename: PsiNamedElement,
     editor: Editor,
     project: Project,
-    title: String
+    title: String,
 ) : InplaceVariableIntroducer<TomlKeySegment>(elementToRename, editor, project, title, emptyArray(), null) {
-
     override fun getNameIdentifier(): PsiElement? {
         return myElementToRename
     }

@@ -21,6 +21,18 @@ on:
 
 jobs:
 
+  spotless:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4.0.0
+        with:
+          distribution: zulu
+          java-version: 17
+      - run: ./gradlew spotlessCheck
+
   # Prepare environment and build the plugin
   build:
     name: Build

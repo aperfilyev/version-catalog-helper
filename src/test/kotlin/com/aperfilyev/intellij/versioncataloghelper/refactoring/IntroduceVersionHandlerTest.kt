@@ -6,7 +6,6 @@ import org.intellij.lang.annotations.Language
 import org.toml.lang.psi.TomlFileType
 
 class IntroduceVersionHandlerTest : BasePlatformTestCase() {
-
     fun testSingleOccurrenceLongNotation() {
         doTest(
             """
@@ -21,7 +20,7 @@ class IntroduceVersionHandlerTest : BasePlatformTestCase() {
             |[libraries]
             |my-lib = "com.mycompany:mylib:1.4"
             |my-other-lib2 = { group = "com.mycompany", name = "name", version.ref = "mycompanyVersion" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -39,7 +38,7 @@ class IntroduceVersionHandlerTest : BasePlatformTestCase() {
             |[libraries]
             |my-lib = "com.mycompany:mylib:1.4"
             |my-other-lib = { module = "com.mycompany:other", version.ref = "mycompanyVersion" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -59,7 +58,7 @@ class IntroduceVersionHandlerTest : BasePlatformTestCase() {
             |my-lib = "com.mycompany:mylib:1.4"
             |my-other-lib = { module = "com.mycompany:other", version.ref = "mycompanyVersion" }
             |my-other-lib2 = { group = "com.mycompany", name = "name", version.ref = "mycompanyVersion" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 

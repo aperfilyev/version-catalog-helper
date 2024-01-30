@@ -14,7 +14,6 @@ import org.toml.lang.psi.TomlTable
 import java.util.Locale
 
 class MyCopyPastePreProcessor : CopyPastePreProcessor {
-
     private val separator = "[\\n\\r\\s]+".toRegex()
 
     override fun preprocessOnPaste(
@@ -22,13 +21,14 @@ class MyCopyPastePreProcessor : CopyPastePreProcessor {
         file: PsiFile,
         editor: Editor,
         text: String,
-        rawText: RawText?
+        rawText: RawText?,
     ): String {
         if (file !is TomlFile) {
             return text
         }
-        val artifactList = text.split(separator)
-            .mapNotNull { it.parseArtifact().getOrNull() }
+        val artifactList =
+            text.split(separator)
+                .mapNotNull { it.parseArtifact().getOrNull() }
         if (artifactList.isEmpty()) {
             return text
         }
@@ -49,10 +49,10 @@ class MyCopyPastePreProcessor : CopyPastePreProcessor {
     private fun findContainingTable(element: PsiElement): TomlTable? {
         return PsiTreeUtil.getPrevSiblingOfType(
             element,
-            TomlTable::class.java
+            TomlTable::class.java,
         ) ?: PsiTreeUtil.getParentOfType(
             element,
-            TomlTable::class.java
+            TomlTable::class.java,
         )
     }
 
@@ -60,7 +60,7 @@ class MyCopyPastePreProcessor : CopyPastePreProcessor {
         project: PsiFile,
         startOffsets: IntArray,
         endOffsets: IntArray,
-        text: String
+        text: String,
     ): String? {
         return null
     }

@@ -7,7 +7,6 @@ import com.intellij.refactoring.RefactoringActionHandler
 import org.toml.lang.psi.TomlKeyValue
 
 class MyRefactoringSupportProvider : RefactoringSupportProvider() {
-
     override fun isAvailable(context: PsiElement): Boolean {
         val parent = PsiTreeUtil.getParentOfType(context, TomlKeyValue::class.java) ?: return false
         return parent.key.textMatches("version") && parent.value == context.parent

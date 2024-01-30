@@ -8,7 +8,6 @@ import org.toml.lang.psi.TomlFileType
 import java.awt.datatransfer.StringSelection
 
 class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
-
     fun testEmptyFile() {
         doTest(
             """implementation 'com.squareup.retrofit2:retrofit:2.9.0'""",
@@ -23,7 +22,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             |[libraries]
             |retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
             |[plugins]
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -47,7 +46,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             |my-other-lib2 = { group = "com.mycompany", name = "name", version = "1.4" }
             |retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
             |[plugins]
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -61,7 +60,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             """
             |[libraries]
             |retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version = "2.9.0" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -115,7 +114,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             |bcpg-jdk15on = { group = "org.bouncycastle", name = "bcpg-jdk15on", version = "1.70" }
             |bucket4j-core = { group = "com.bucket4j", name = "bucket4j-core", version = "8.5.0" }
             |bucket4j-dynamodb-sdk-v1 = { group = "com.bucket4j", name = "bucket4j-dynamodb-sdk-v1", version = "8.5.0" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -129,7 +128,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             """
             |[plugins]
             |implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -143,7 +142,7 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             """
             |[libraries]
             |hikariCP = { group = "com.zaxxer", name = "HikariCP", version = "4.0.3" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
@@ -157,14 +156,14 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
             """
             |[libraries]
             |jakarta-inject-api = { group = "jakarta.inject", name = "jakarta.inject-api", version = "2.0.1" }
-            """.trimMargin()
+            """.trimMargin(),
         )
     }
 
     private fun doTest(
         text: String,
         @Language("TOML") beforeText: String,
-        @Language("TOML") afterText: String
+        @Language("TOML") afterText: String,
     ) {
         myFixture.configureByText(TomlFileType, beforeText)
         CopyPasteManager.getInstance().setContents(StringSelection(text))

@@ -5,7 +5,7 @@ import java.util.regex.Pattern
 data class Artifact(
     val groupId: String,
     val artifactId: String,
-    val version: String
+    val version: String,
 )
 
 private val pattern = Pattern.compile("([^: '(\"]+):([^: ]+)(:([^: ]*)(:([^: ]+))?)?:([^: )'\"]+)")

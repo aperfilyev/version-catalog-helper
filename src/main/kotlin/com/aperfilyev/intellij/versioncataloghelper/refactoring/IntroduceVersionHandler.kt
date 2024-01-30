@@ -21,8 +21,12 @@ import org.toml.lang.psi.TomlTable
 import org.toml.lang.psi.TomlValue
 
 class IntroduceVersionHandler : RefactoringActionHandler {
-
-    override fun invoke(project: Project, editor: Editor, file: PsiFile, dataContext: DataContext) {
+    override fun invoke(
+        project: Project,
+        editor: Editor,
+        file: PsiFile,
+        dataContext: DataContext,
+    ) {
         val offset = editor.caretModel.offset
         val element = file.findElementAt(offset) ?: return
         val versionKeyValue = PsiTreeUtil.getParentOfType(element, TomlKeyValue::class.java) ?: return
@@ -43,10 +47,11 @@ class IntroduceVersionHandler : RefactoringActionHandler {
         showOccurrencesChooser(editor, versionKeyValue.value!!, matchingVersions) { versions ->
             val document = editor.document
             WriteCommandAction.runWriteCommandAction(project) {
-                val markers = versions.mapNotNull { value ->
-                    val tomlKeyValue = PsiTreeUtil.getParentOfType(value, TomlKeyValue::class.java)
-                    tomlKeyValue?.let { document.createRangeMarker(it.startOffset, tomlKeyValue.endOffset) }
-                }
+                val markers =
+                    versions.mapNotNull { value ->
+                        val tomlKeyValue = PsiTreeUtil.getParentOfType(value, TomlKeyValue::class.java)
+                        tomlKeyValue?.let { document.createRangeMarker(it.startOffset, tomlKeyValue.endOffset) }
+                    }
                 for (marker in markers) {
                     document.replaceString(marker.startOffset, marker.endOffset, replacement)
                 }
@@ -66,18 +71,19 @@ class IntroduceVersionHandler : RefactoringActionHandler {
 
     private fun findGroupId(entry: TomlKeyValue?): String? {
         val groupKeyValue = PsiTreeUtil.getChildOfType(entry?.value, TomlKeyValue::class.java)
-        val groupId = when {
-            groupKeyValue?.key?.textMatches("module") == true -> groupKeyValue.value?.text?.substringBefore(":")
-            groupKeyValue?.key?.textMatches("group") == true -> groupKeyValue.value?.text
-            else -> null
-        }
+        val groupId =
+            when {
+                groupKeyValue?.key?.textMatches("module") == true -> groupKeyValue.value?.text?.substringBefore(":")
+                groupKeyValue?.key?.textMatches("group") == true -> groupKeyValue.value?.text
+                else -> null
+            }
         return groupId?.replace("\"", "")
     }
 
     private fun findAllOccurrences(
         allTables: List<TomlTable>,
         groupId: String,
-        versionKeyValue: TomlKeyValue
+        versionKeyValue: TomlKeyValue,
     ): List<TomlValue> {
         val libsTable = allTables.firstOrNull { it.header.textMatches("[libraries]") } ?: return emptyList()
         return libsTable.entries.filter { findGroupId(it) == groupId }
@@ -95,22 +101,30 @@ class IntroduceVersionHandler : RefactoringActionHandler {
         editor: Editor,
         selected: TomlValue,
         occurrences: List<TomlValue>,
-        callback: (List<TomlValue>) -> Unit
+        callback: (List<TomlValue>) -> Unit,
     ) {
         if (!isUnitTestMode) {
             OccurrencesChooser.simpleChooser<TomlValue>(editor)
-                .showChooser(selected, occurrences, Pass.create {
-                    if (it == OccurrencesChooser.ReplaceChoice.ALL) {
-                        callback(occurrences)
-                    } else {
-                        callback(listOf(selected))
-                    }
-                })
+                .showChooser(
+                    selected,
+                    occurrences,
+                    Pass.create {
+                        if (it == OccurrencesChooser.ReplaceChoice.ALL) {
+                            callback(occurrences)
+                        } else {
+                            callback(listOf(selected))
+                        }
+                    },
+                )
         } else {
             callback(occurrences)
         }
     }
 
-    override fun invoke(project: Project, elements: Array<out PsiElement>, dataContext: DataContext?) {
+    override fun invoke(
+        project: Project,
+        elements: Array<out PsiElement>,
+        dataContext: DataContext?,
+    ) {
     }
 }
