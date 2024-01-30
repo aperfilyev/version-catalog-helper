@@ -17,13 +17,17 @@
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections. 
+A plugin for Android Studio / Intellij that will improve your use of gradle version catalogs.
 <!-- Plugin description end -->
 
+## Features
+
+- Single-line copy-paste
+  ![](assets/single-line-paste.webm)
+- Multi-line copy-paste
+  ![](assets/multi-line-paste.webm)
+- Extract constant refactoring
+  ![](assets/extract-constant.webm)
 ## Installation
 
 - Using the IDE built-in plugin system:

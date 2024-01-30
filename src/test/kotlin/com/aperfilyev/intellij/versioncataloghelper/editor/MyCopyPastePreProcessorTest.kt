@@ -133,6 +133,34 @@ class MyCopyPastePreProcessorTest : BasePlatformTestCase() {
         )
     }
 
+    fun testCapitalizedName() {
+        doTest(
+            """implementation 'com.zaxxer:HikariCP:4.0.3'""",
+            """
+            |[libraries]
+            |<caret>
+            """.trimMargin(),
+            """
+            |[libraries]
+            |hikariCP = { group = "com.zaxxer", name = "HikariCP", version = "4.0.3" }
+            """.trimMargin()
+        )
+    }
+
+    fun testNameContainsPeriod() {
+        doTest(
+            """implementation 'jakarta.inject:jakarta.inject-api:2.0.1'""",
+            """
+            |[libraries]
+            |<caret>
+            """.trimMargin(),
+            """
+            |[libraries]
+            |jakarta-inject-api = { group = "jakarta.inject", name = "jakarta.inject-api", version = "2.0.1" }
+            """.trimMargin()
+        )
+    }
+
     private fun doTest(
         text: String,
         @Language("TOML") beforeText: String,

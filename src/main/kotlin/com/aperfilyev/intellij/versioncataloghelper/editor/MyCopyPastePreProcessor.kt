@@ -11,6 +11,7 @@ import com.intellij.psi.util.PsiTreeUtil
 import com.intellij.psi.util.PsiUtilCore
 import org.toml.lang.psi.TomlFile
 import org.toml.lang.psi.TomlTable
+import java.util.Locale
 
 class MyCopyPastePreProcessor : CopyPastePreProcessor {
 
@@ -33,14 +34,15 @@ class MyCopyPastePreProcessor : CopyPastePreProcessor {
         }
         val offset = editor.caretModel.offset
 
-        val element = PsiUtilCore.getElementAtOffset(file, offset) ?: return text
+        val element = PsiUtilCore.getElementAtOffset(file, offset)
         val table = findContainingTable(element)?.header ?: return text
         val inLibs = table.textMatches("[libraries]")
         if (!inLibs) {
             return text
         }
         return artifactList.joinToString(System.lineSeparator()) { (groupId, artifactId, version) ->
-            """$artifactId = { group = "$groupId", name = "$artifactId", version = "$version" }"""
+            val name = artifactId.replace('.', '-').replaceFirstChar { it.lowercase(Locale.getDefault()) }
+            """$name = { group = "$groupId", name = "$artifactId", version = "$version" }"""
         }
     }
 
