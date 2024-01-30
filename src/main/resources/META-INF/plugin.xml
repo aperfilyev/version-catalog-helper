@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.aperfilyev.aperfilyev.intellij.version-catalog-helper</id>
+    <id>com.aperfilyev.intellij.version-catalog-helper</id>
     <name>Gradle Version Catalog Helper</name>
     <vendor>aperfilyev</vendor>
 
