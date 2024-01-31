@@ -36,6 +36,7 @@ jobs:
   # Prepare environment and build the plugin
   build:
     name: Build
+    needs: [ spotless ]
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.properties.outputs.version }}
