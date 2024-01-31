@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper.refactoring.inplace
+package com.aperfilyev.versioncataloghelper.refactoring.inplace
 
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.project.Project

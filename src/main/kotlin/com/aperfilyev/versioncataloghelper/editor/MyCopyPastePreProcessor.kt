@@ -1,6 +1,6 @@
-package com.aperfilyev.intellij.versioncataloghelper.editor
+package com.aperfilyev.versioncataloghelper.editor
 
-import com.aperfilyev.intellij.versioncataloghelper.parseArtifact
+import com.aperfilyev.versioncataloghelper.parseArtifact
 import com.intellij.codeInsight.editorActions.CopyPastePreProcessor
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.RawText

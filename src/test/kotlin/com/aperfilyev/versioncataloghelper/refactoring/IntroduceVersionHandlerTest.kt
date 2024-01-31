@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper.refactoring
+package com.aperfilyev.versioncataloghelper.refactoring
 
 import com.intellij.openapi.actionSystem.impl.SimpleDataContext
 import com.intellij.testFramework.fixtures.BasePlatformTestCase

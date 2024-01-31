@@ -1,7 +1,7 @@
-package com.aperfilyev.intellij.versioncataloghelper.refactoring
+package com.aperfilyev.versioncataloghelper.refactoring
 
-import com.aperfilyev.intellij.versioncataloghelper.refactoring.inplace.MyVariableIntroducer
-import com.aperfilyev.intellij.versioncataloghelper.util.getLastChildOfType
+import com.aperfilyev.versioncataloghelper.refactoring.inplace.MyVariableIntroducer
+import com.aperfilyev.versioncataloghelper.util.getLastChildOfType
 import com.intellij.ide.plugins.PluginManagerCore.isUnitTestMode
 import com.intellij.openapi.actionSystem.DataContext
 import com.intellij.openapi.command.WriteCommandAction
