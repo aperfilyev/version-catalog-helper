@@ -1,6 +1,6 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.aperfilyev.intellij.version-catalog-helper</id>
+    <id>com.aperfilyev.version-catalog-helper</id>
     <name>Gradle Version Catalog Helper</name>
     <vendor>aperfilyev</vendor>
 
@@ -8,8 +8,8 @@
     <depends>org.toml.lang</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <copyPastePreProcessor implementation="com.aperfilyev.intellij.versioncataloghelper.editor.MyCopyPastePreProcessor"/>
-        <lang.refactoringSupport implementationClass="com.aperfilyev.intellij.versioncataloghelper.refactoring.MyRefactoringSupportProvider" language="TOML"/>
+        <copyPastePreProcessor implementation="com.aperfilyev.versioncataloghelper.editor.MyCopyPastePreProcessor"/>
+        <lang.refactoringSupport implementationClass="com.aperfilyev.versioncataloghelper.refactoring.MyRefactoringSupportProvider" language="TOML"/>
     </extensions>
 
 </idea-plugin>

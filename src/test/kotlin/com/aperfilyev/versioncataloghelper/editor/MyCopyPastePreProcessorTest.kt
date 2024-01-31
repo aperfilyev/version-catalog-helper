@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper.editor
+package com.aperfilyev.versioncataloghelper.editor
 
 import com.intellij.openapi.ide.CopyPasteManager
 import com.intellij.testFramework.EditorTestUtil

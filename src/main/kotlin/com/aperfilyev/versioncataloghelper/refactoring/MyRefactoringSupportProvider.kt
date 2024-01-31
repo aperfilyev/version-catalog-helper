@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper.refactoring
+package com.aperfilyev.versioncataloghelper.refactoring
 
 import com.intellij.lang.refactoring.RefactoringSupportProvider
 import com.intellij.psi.PsiElement

@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper
+package com.aperfilyev.versioncataloghelper
 
 import java.util.regex.Pattern
 

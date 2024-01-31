@@ -1,4 +1,4 @@
-package com.aperfilyev.intellij.versioncataloghelper.util
+package com.aperfilyev.versioncataloghelper.util
 
 import com.intellij.psi.PsiElement
 
