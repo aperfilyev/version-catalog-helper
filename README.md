@@ -1,8 +1,8 @@
 # version-catalog-helper
 
 ![Build](https://github.com/aperfilyev/version-catalog-helper/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/com.aperfilyev.intellij.version-catalog-helper.svg)](https://plugins.jetbrains.com/plugin/com.aperfilyev.intellij.version-catalog-helper)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/com.aperfilyev.intellij.version-catalog-helper.svg)](https://plugins.jetbrains.com/plugin/com.aperfilyev.intellij.version-catalog-helper)
+[![Version](https://img.shields.io/jetbrains/plugin/v/23691-gradle-version-catalog-helper.svg)](https://plugins.jetbrains.com/plugin/23691-gradle-version-catalog-helper)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/23691-gradle-version-catalog-helper.svg)](https://plugins.jetbrains.com/plugin/23691-gradle-version-catalog-helper)
 
 <!-- Plugin description -->
 A plugin for Android Studio / Intellij that will improve your use of gradle version catalogs.
