@@ -4,7 +4,7 @@
 # plugins
 kotlin = "1.9.22"
 changelog = "2.2.0"
-gradleIntelliJPlugin = "1.17.1"
+gradleIntelliJPlugin = "1.17.2"
 
 [libraries]
 
