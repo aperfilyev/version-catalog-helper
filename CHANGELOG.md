@@ -1,6 +1,10 @@
 # Changelog
 
 ## [Unreleased]
+### Changed
+Update min and max intellij platform version
+
+## [0.1.0]
 ### Added
 
 - Introduce constant refactoring.
